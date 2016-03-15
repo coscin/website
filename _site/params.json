@@ -1,0 +1,7 @@
+{
+  "name": "CoSciN",
+  "tagline": "The Cornell Science Network",
+  "body": "### CoSciN is the Fast Track for Cornell Campus-to-Campus Collaboration\r\n\r\nCornell's Ithaca campus and New York City-based Weill Medical campus are only 231 miles away.  Sending large files \r\nbetween them should be really fast right?  But hey.  Driving your car into the middle of Manhattan is not fast, is it?  \r\nThe fact is, there is a lot of infrastructure standing in the way.\r\n\r\nEnter CoSciN!  Using state of the art Software Defined Networking (SDN) technology, CoSciN is an expert on the \r\nroads for you.  Coordinating between three traffic paths, CoSciN figures the least-used path at five minute intervals and \r\nredirects traffic based on them.  And it does this transparently.  Researchers simply send files like they normally\r\ndo and CoSciN takes care of the rest.\r\n\r\nAnd how much faster is it?  It cuts the transfer time of multi-terabyte files from weeks to hours.  For huge dataset\r\napplications like genomics, this is a huge difference.  Not having to worry about transfer times and scheduling, \r\nresearchers are free to do what they're best at ... research! ",
+  "google": "",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
