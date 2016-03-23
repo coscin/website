@@ -21,5 +21,8 @@ applications like genomics, this is a huge difference.  Not having to worry abou
 researchers are free to do what they're best at ... research! 
 
 * [Network App Background](netapp)
+* [Software Defined Measurement](sdm)
 * [CoSciN on a Laptop](laptop)
+* [The Gates Testbed]
+* [The Production Network]
 * [Infrastructure Technical Details - Creating Controllers and Measurement Hosts](infrastructure)
