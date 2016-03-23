@@ -1,6 +1,5 @@
 ---
 layout: main
-title: Home
 ---
 
 ### CoSciN is the Fast Track for Cornell Campus-to-Campus Collaboration
@@ -22,4 +21,5 @@ applications like genomics, this is a huge difference.  Not having to worry abou
 researchers are free to do what they're best at ... research! 
 
 * [Network App Background](netapp)
+* [CoSciN on a Laptop](laptop)
 * [Infrastructure Technical Details - Creating Controllers and Measurement Hosts](infrastructure)
