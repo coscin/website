@@ -21,7 +21,7 @@ one router - whose network configurations mirror real-world equivalents.  The se
 which can run on the host and connect the VM's through Private Bridge networks. Keeping the controller on the host makes development 
 and debugging easy: you don't have to do complicated restarts of the infrastructure.  
 
-![Coscin Laptop Network](images/Coscin_Demo_net.png)
+![Coscin Laptop Network](images/Coscin_Demo_Net.png)
 
 In the above diagram, all IP addresses are assumed to be in the private class-B space, so "56.100" means "192.168.56.100".
 
