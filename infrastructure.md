@@ -163,11 +163,12 @@ the default path.   But they both need to be running to make the measurements wo
 Accept the defaults, except be sure to install OpenSSH Server when prompted.  (If you forget, you can 
 always install the APT package "openssh-server" in step 3 below.)
 
-1. The host requires two NICs, one for doing the actual measurements, and one (eth1) for reporting the results.  The first
+1. The host requires two NICs, one for doing the actual measurements, and one for reporting the results.  The first
 NIC should have an IP address assigned to it (through DHCP or statically).  The second should not.  That's because if
 the second NIC sends any IP packets, the switch will consider that a host, learn its IP, and handle all the traffic in
 the switch.  Measurement reporting packets have a special non-IP Ethernet type, and must all got the controller.  To
-configure a non-IP NIC in Ubuntu, include the following in `/etc/network/interfaces`:
+configure a non-IP NIC in Ubuntu, include the following in `/etc/network/interfaces`. (You can
+substitute the appropriate interface for `eth1`)
 
         # Don't enable IP on eth1.  It will be sending utilization packets
         auto eth1
@@ -220,15 +221,21 @@ There are a few configuration parameters in a JSON file:
 
     {
       "probe_interval": 60,
-      "alternate_hosts": { 
-        "ithaca": [ "192.168.157.100", "192.168.159.100", "192.168.161.100" ],
-        "nyc": [ "192.168.156.100", "192.168.158.100", "192.168.160.100" ]
+      "ithaca": {
+        "reporting_interface": "eth1",
+        "target_hosts": [ "192.168.157.100", "192.168.159.100", "192.168.161.100" ]
+      },
+      "nyc": {
+        "reporting_interface": "eth1",
+        "target_hosts": [ "192.168.156.100", "192.168.158.100", "192.168.160.100" ]
       }
     }
 
-* `probe_interval` is the time between probes in seconds.  
+In this file:
 
-* `alternate_hosts` is a lot like the `alternate_paths` attribute in the CoSciN controller configuration.  The three hosts
+* `probe_interval` is the time between probes in seconds.  
+* `reporting_interface` is the network interface you condfigured above to send measurement packets.  
+* `target_hosts` is a lot like the `alternate_paths` attribute in the CoSciN controller configuration.  The three hosts
 represent the three imaginary IPs for a host on the other side.  So in the above example, 192.168.157.100, 192.168.159.100
 and 192.168.161.100 are actually the same host (192.168.57.100), but each takes a different alternate path.  The SDM 
 program pings each in turn to measure response times.  
