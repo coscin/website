@@ -164,9 +164,54 @@ Finally, you should turn on IP routing by editing the file `/etc/sysctl.conf` an
 
 Then reboot the router as you would a normal Ubuntu server with `sudo reboot now`.  Your VM configuration is now complete!
 
-## Installing Controller
+## Installing RYU CoSciN Controller
 
-> Currently, only the Frenetic-based controller runs on the laptop network.
+You install RYU and the controller software on the host just like you would a production one, using the 
+directions in the first section of [Infrastructure Technical Details - Creating Controllers and Measurement Hosts](infrastructure).  You can skip the Zookeeperd installation if you wish, since in the laptop configuration you
+won't be doing any clustering.  
+
+You should use a laptop-specific CoSciN configuration file.  You can use `coscin_laptop_testbed.json`
+as a template.  Notice that the `zookeeper` attributes in this file are blank - this configures CoSciN not
+to use Zookeeper at all.  The `controller_hosts` attributes in both the NYC and Ithaca sides should be
+changed to match the host name of your laptop.  Finally, change the `/etc/init/coscin-app-ryu.conf` file
+to point to the correct configuration file `coscin_laptop_testbed.json`.
+
+Now you're ready to run the CoSciN App for the first time - see the section Running the Network below for the
+required steps.  However, the first run most likely won't work correctly.
+Two OpenVSwitch bridges named `br-ithaca` and `br-nyc` were created as part of the install processes, and were given random
+datapath IDs.  You will see a messages like this in the log:
+
+       `2016-03-16 10:38:11.488 INFO CoscinApp Switch 378372418241536 says hello.`
+       ...
+       `2016-03-16 10:38:11.488 INFO CoscinApp Switch 82734059872304 says hello.`
+
+Then you need to add this DPID to the `coscin_laptop_testbed.json` file.  Generally the first listed switch is 
+the DPID for Ithaca and the second for NYC, but if this doesn't work, NYC won't be able to ping Ithaca and vice-versa.
+In that case you just swap the DPID's and it should work.    
+
+### Running the Network
+
+You must start up the VM's in the following order, so that the network interfaces will be assigned correctly.  You should run them
+all in separate terminal windows.
+
+    $ sudo bin/ithaca_up
+    $ sudo bin/nyc_up
+    $ sudo bin/router_up
+
+Then you can start up the CoSciN app on the host:
+
+    $ sudo service coscin-app-ryu start
+
+To test the connectivity, login to either the `coscintest-host-ithaca` VM or the `coscintest-host-nyc` VM and ping the other:
+
+    ubuntu@coscintest-host-ithaca$ ping 192.168.57.100
+    ubuntu@coscintest-host-ithaca$ ping 192.168.157.100
+
+Finally, to shut down VM's, use the Ubuntu standard `sudo shutdown now` on each.  I usually shutdown in the reverse order the VM's
+were started, but that's probably not necessary.
+
+
+## Installing Frenetic CoSciN Controller
 
 You install Frenetic and the controller software on the host just like you would a normal one, using the directions
 at https://coscin.github.io./website/frenetic-controller.  
@@ -221,7 +266,7 @@ pop those dpid's into the right switch attributes
       ]
     }
 
-## Running the Network
+### Running the Network
 
 You must start up the VM's in the following order, so that the network interfaces will be assigned correctly.  You should run them
 all in separate terminal windows.
