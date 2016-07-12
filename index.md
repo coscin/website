@@ -23,7 +23,7 @@ researchers are free to do what they're best at ... research!
 * [Network App Background](netapp)
 * [Software Defined Measurement](sdm)
 * [CoSciN on a Laptop](laptop)
-* [The Gates Testbed]
-* [The Production Network]
+* [The Gates Testbed](testbed)
+* [The Production Network](prod)
 * [Infrastructure Technical Details - Creating Controllers and Measurement Hosts](infrastructure)
 * [Performance Testing](perf)
